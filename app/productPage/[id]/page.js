@@ -10,6 +10,10 @@ export default function ProductPage({ params: { id } }) {
     (product) => product.id === Number(id)
   );
 
+  const catagory = productDetails.category.replace(/^\w/, (match) =>
+    match.toUpperCase()
+  );
+
   const discountedPrice =
     productDetails.price -
     (productDetails.discountPercentage / 100) * productDetails.price;
@@ -47,9 +51,7 @@ export default function ProductPage({ params: { id } }) {
               {productDetails.title}
             </h1>
             <span className="text-[#919090] my-3">
-              <Link href={`/category/${productDetails.category}`}>
-                {productDetails.category}
-              </Link>
+              <Link href={`/category/${catagory}`}>{catagory}</Link>
             </span>
             <div className="mt-3 flex items-center justify-start gap-1">
               {Array.from({

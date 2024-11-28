@@ -11,7 +11,7 @@ export default function CategoryPage({ params }) {
     if (params.name === "All") {
       return true;
     }
-    return name.category === params.name;
+    return name.category === params.name.toLowerCase();
   });
 
   console.log(filterCategory);

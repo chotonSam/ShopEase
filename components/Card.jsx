@@ -7,6 +7,10 @@ export default function Card({ product }) {
     product.price - (product.discountPercentage / 100) * product.price;
   const discountPrice = discountedPrice.toFixed(2);
 
+  const catagory = product.category.replace(/^\w/, (match) =>
+    match.toUpperCase()
+  );
+
   return (
     <div>
       <Link href={`/productPage/${product.id}`}>
@@ -25,10 +29,7 @@ export default function Card({ product }) {
           {product.title}
         </Link>
         <span className="text-[#919090]">
-          <Link href={`/category/${product.category}`}>
-            {" "}
-            ({product.category})
-          </Link>
+          <Link href={`/category/${catagory}`}> ({catagory})</Link>
         </span>
       </h2>
       <p className="text-[#919090] text-sm ">{product.description}</p>
