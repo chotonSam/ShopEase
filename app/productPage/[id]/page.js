@@ -1,10 +1,13 @@
 "use client";
 
-import Loading from "@/components/Loading";
 import { data } from "@/data/data";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, useState } from "react";
+import { useState } from "react";
+
+import { FaRegArrowAltCircleLeft } from "react-icons/fa";
+
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
 
 export default function ProductPage({ params: { id } }) {
   const productDetails = data.products.find(
@@ -20,22 +23,43 @@ export default function ProductPage({ params: { id } }) {
     (productDetails.discountPercentage / 100) * productDetails.price;
   const discountPrice = discountedPrice.toFixed(2);
   const [count, setCount] = useState(0);
+
+  const handlePrev = () => {
+    setCount(count === 0 ? productDetails.images.length - 1 : count - 1);
+  };
+
+  const handleNext = () => {
+    setCount(count === productDetails.images.length - 1 ? 0 : count + 1);
+  };
+
   return (
     <main className="h-screen">
       <section className="bg-[#fafaf2] h-full py-20">
         <div className="w-11/12 lg:w-8/12 max-w-7xl mx-auto flex flex-col gap-12 lg:flex-row items-center justify-between">
-          <div className="w-full lg:w-7/12 border border-slate-500/20 p-4">
-            <Suspense fallback={<Loading />}>
-              <Image
-                src={productDetails.images[count]}
-                className="w-[400px] h-[500px] mx-auto object-cover"
-                alt=""
-                // priority={true}
-                blurDataURL={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='100%' height='100%' fill='%23fafafa'/%3E%3C/svg%3E`}
-                width={400}
-                height={500}
-              />
-            </Suspense>
+          <div className="w-full lg:w-7/12 border border-slate-500/20 p-4 relative">
+            {/* Left Button */}
+            <button
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 text-4xl p-1 hover:bg-gray-200"
+              onClick={handlePrev}
+            >
+              <FaRegArrowAltCircleLeft />
+            </button>
+
+            <Image
+              src={productDetails.images[count]}
+              className="w-[400px] h-[500px] mx-auto object-cover"
+              alt=""
+              width={400}
+              height={500}
+            />
+
+            {/* Right Button */}
+            <button
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 text-4xl p-1 hover:bg-gray-200"
+              onClick={handleNext}
+            >
+              <FaRegArrowAltCircleRight />
+            </button>
 
             <div className="flex gap-4 mt-4">
               {productDetails.images.map((image, i) => (
