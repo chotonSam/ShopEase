@@ -30,6 +30,8 @@ export default function ProductPage({ params: { id } }) {
                 src={productDetails.images[count]}
                 className="w-[400px] h-[500px] mx-auto object-cover"
                 alt=""
+                // priority={true}
+                blurDataURL={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='100%' height='100%' fill='%23fafafa'/%3E%3C/svg%3E`}
                 width={400}
                 height={500}
               />
